@@ -41,7 +41,11 @@ public class ConfigReader {
         elements.forEach(element -> {
             if (element.getName().equals("mysql-url")) {
                 String url = element.attribute("url").getValue();
+                String username = element.attribute("username").getValue();
+                String password = element.attribute("password").getValue();
                 configMap.put("url", url);
+                configMap.put("username", username);
+                configMap.put("password", password);
             }
             if (element.getName().equals("tables")) {
                 List<Element> tables = element.elements();
@@ -53,8 +57,7 @@ public class ConfigReader {
                         stringBuffer.append(field.getText() + ",");
                     });
                     String select = stringBuffer.substring(0, stringBuffer.length() - 1);
-                    String sql = "select " + select + " from " + tableName;
-                    sqlMap.put(tableName, sql);
+                    sqlMap.put(tableName, select);
                 });
             }
         });

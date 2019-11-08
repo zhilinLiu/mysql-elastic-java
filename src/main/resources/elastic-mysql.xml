@@ -1,14 +1,10 @@
 <config>
     <mysqlReader>
-        <mysql-url url="sajsi"/>
+        <mysql-url url="jdbc:mysql://localhost:3306/exam?serverTimezone=UTC" username="root" password="root"/>
         <tables>
-            <table tablename="testUser">
-                <field>user_name</field>
+            <table tablename="user">
+                <field>username</field>
                 <field>password</field>
-            </table>
-            <table tablename="role">
-                <field>roleId</field>
-                <field>TestId</field>
             </table>
         </tables>
     </mysqlReader>
