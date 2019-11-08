@@ -1,0 +1,19 @@
+<config>
+    <mysqlReader>
+        <mysql-url url="sajsi"/>
+        <tables>
+            <table tablename="testUser">
+                <field>user_name</field>
+                <field>password</field>
+            </table>
+            <table tablename="role">
+                <field>roleId</field>
+                <field>TestId</field>
+            </table>
+        </tables>
+    </mysqlReader>
+
+    <ESOperater>
+
+    </ESOperater>
+</config>
