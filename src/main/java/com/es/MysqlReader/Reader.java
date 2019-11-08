@@ -11,10 +11,18 @@ public class Reader implements MysqlReader {
     private ConfigReader config;
 
     public Reader() {
+        initializeConfigReader();
+        initializeMysqlReader();
+    }
+    private void initializeConfigReader(){
         config = new ConfigReader();
         Document document = config.configRead("elastic-mysql.xml");
         ConfigReader config = this.config.getConfig(document);
         this.config = config;
+    }
+
+    private void initializeMysqlReader(){
+
     }
 
     @Override
