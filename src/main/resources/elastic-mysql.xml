@@ -22,32 +22,41 @@
 <!--        索引的名字-->
         <index tablename="sys_user" shards="1" replicas="0">
             {
-                "properties": {
-                "name": {
-                "type": "text"
-                },
-                "description": {
-                "type": "text"
-                },
-                "studymodel": {
-                "type": "keyword"
-                }
-                }
+            "properties": {
+            "id": {
+            "type": "integer"
+            },
+            "user_name": {
+            "type": "text"
+            },
+            "password": {
+            "type": "keyword"
+            },
+            "sex": {
+            "type": "integer"
+            },
+            "email": {
+            "type": "text"
+            },
+            "phone": {
+            "type": "text"
+            }
+            }
             }
         </index>
         <index tablename="sys_role" shards="1" replicas="0">
             {
-                 "properties": {
-                 "name": {
-                 "type": "text"
-                 },
-                "description": {
-                "type": "text"
-                },
-                "studymodel": {
-                "type": "keyword"
-                }
-                }
+            "properties": {
+            "id": {
+            "type": "integer"
+            },
+            "name": {
+            "type": "text"
+            },
+            "description": {
+            "type": "text"
+            }
+            }
             }
         </index>
     </ESOperater>
