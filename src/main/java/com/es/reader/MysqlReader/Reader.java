@@ -1,15 +1,13 @@
-package com.es.MysqlReader;
+package com.es.reader.MysqlReader;
 
+import com.es.Exception.DataReaderException;
 import org.dom4j.Document;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * 读取数据实现类
@@ -17,6 +15,7 @@ import java.util.Vector;
 public class Reader implements MysqlReader {
     private ConfigReader config;
     private Connection conn;
+    private Map data;
     public Reader() {
         initializeConfigReader();
         initializeMysqlReader();
@@ -31,15 +30,19 @@ public class Reader implements MysqlReader {
     //初始化数据库连接池
     private void initializeMysqlReader(){
         DataReader dataReader = new DataReader(config);
+        System.out.println("启动数据读取器:    true");
         this.conn = dataReader.getJDBCConnection();
+        boolean b = ReadDataFromMysql();
+        System.out.println("读取mysql数据:  "+b);
     }
 
     //这块容易报错
     @Override
-    public List ReadDataFromMysql() {
+    public boolean ReadDataFromMysql() {
         Map sqlMap = config.getSqlMap();
-        LinkedList<List> rows = new LinkedList<>();
+        LinkedHashMap<String, List> map = new LinkedHashMap<>();
         sqlMap.forEach((tableName,value1)->{
+            LinkedList<List> rows = new LinkedList<>();
             String  value = (String) value1;
             String sql ="select "+ value+" from "+ tableName;
             String[] feilds = value.split(",");
@@ -57,21 +60,17 @@ public class Reader implements MysqlReader {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            }finally {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                throw new DataReaderException("从表中读取数据失败");
             }
+            map.put(tableName.toString(),rows);
         });
-
-        return rows;
+        this.data = map;
+        return true;
     }
 
     @Override
-    public boolean sendDataCenter() {
-        return false;
+    public Map getData() {
+        return this.data;
     }
 
 

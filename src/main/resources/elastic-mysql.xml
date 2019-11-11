@@ -1,15 +1,54 @@
 <config>
     <mysqlReader>
-        <mysql-url url="jdbc:mysql://localhost:3306/exam?serverTimezone=UTC" username="root" password="root"/>
+        <mysql-url url="jdbc:mysql://192.168.50.171:3306/meio_dev?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai" username="root" password="root"/>
         <tables>
-            <table tablename="user">
-                <field>username</field>
+            <table tablename="sys_user">
+                <field>id</field>
+                <field>user_name</field>
                 <field>password</field>
+                <field>sex</field>
+                <field>email</field>
+                <field>phone</field>
+            </table>
+            <table tablename="sys_role">
+                <field>id</field>
+                <field>name</field>
+                <field>description</field>
             </table>
         </tables>
     </mysqlReader>
-
-    <ESOperater>
-
+<!--    ES配置-->
+    <ESOperater host="192.168.50.171" port="9200">
+<!--        索引的名字-->
+        <index tablename="test1">{
+            {
+            "properties": {
+            "name": {
+            "type": "text"
+            },
+            "description": {
+            "type": "text"
+            },
+            "studymodel": {
+            "type": "keyword"
+            }
+            }
+            }
+        </index>
+        <index tablename="test2">{
+                {
+                    "properties": {
+                    "name": {
+                    "type": "text"
+                    },
+                    "description": {
+                    "type": "text"
+                    },
+                    "studymodel": {
+                    "type": "keyword"
+                    }
+                }
+            }
+        </index>
     </ESOperater>
 </config>

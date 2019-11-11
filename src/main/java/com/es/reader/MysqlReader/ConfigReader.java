@@ -1,4 +1,4 @@
-package com.es.MysqlReader;
+package com.es.reader.MysqlReader;
 
 import com.es.Exception.ConfigReaderException;
 import org.dom4j.Document;
