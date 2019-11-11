@@ -1,8 +1,7 @@
-package com.es.ElasticOperater;
+package com.es.ElasticReader;
 
 import com.es.client.ElasticClient;
-import com.es.test;
-import org.apache.log4j.Logger;
+import com.es.Application;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -45,7 +44,7 @@ public class StartElastic implements ESOperater {
     @Override
     public void getEsConfig() throws DocumentException {
         SAXReader saxReader = new SAXReader();
-        Document read = saxReader.read(test.class.getClassLoader().getResource("elastic-mysql.xml"));
+        Document read = saxReader.read(Application.class.getClassLoader().getResource("elastic-mysql.xml"));
         Element root = read.getRootElement();
         Element esOperater = root.element("ESOperater");
         String host = esOperater.attribute("host").getValue();
@@ -55,8 +54,10 @@ public class StartElastic implements ESOperater {
         LinkedHashMap<String, String> indexMap = new LinkedHashMap<>();
         indexes.forEach(index -> {
             String tablename = index.attribute("tablename").getValue();
+            String shards = index.attributeValue("shards");
+            String replicas = index.attributeValue("replicas");
             String indexJSON = index.getText();
-            indexMap.put(tablename, indexJSON);
+            indexMap.put(tablename+":"+shards+":"+replicas, indexJSON.replaceAll(" ","").replaceAll("   ",""));
         });
         this.indexMap = indexMap;
         this.host = host;

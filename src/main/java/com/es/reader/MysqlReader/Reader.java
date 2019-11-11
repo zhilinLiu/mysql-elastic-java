@@ -15,7 +15,7 @@ import java.util.*;
 public class Reader implements MysqlReader {
     private ConfigReader config;
     private Connection conn;
-    private Map data;
+    private Map<String,List> data;
     public Reader() {
         initializeConfigReader();
         initializeMysqlReader();
@@ -62,7 +62,7 @@ public class Reader implements MysqlReader {
                 e.printStackTrace();
                 throw new DataReaderException("从表中读取数据失败");
             }
-            map.put(tableName.toString(),rows);
+            map.put(tableName.toString()+":"+value,rows);
         });
         this.data = map;
         return true;

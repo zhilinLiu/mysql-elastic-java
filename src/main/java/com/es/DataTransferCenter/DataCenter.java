@@ -2,6 +2,7 @@ package com.es.DataTransferCenter;
 
 import com.es.client.ElasticClient;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,5 +16,5 @@ public interface DataCenter {
     public void getESClient();
 
     //操作数据进入ES
-    public boolean intoES(ElasticClient client, Map mysqlData, Map indexMap);
+    public boolean intoES(ElasticClient client, Map<String, List> mysqlData, Map<String,String> indexMap);
 }

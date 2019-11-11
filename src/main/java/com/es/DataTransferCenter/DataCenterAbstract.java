@@ -1,17 +1,18 @@
 package com.es.DataTransferCenter;
 
-import com.es.ElasticOperater.StartElastic;
+import com.es.ElasticReader.StartElastic;
 import com.es.client.ElasticClient;
 import com.es.reader.MysqlReader.Reader;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  *
  */
 public abstract class DataCenterAbstract implements DataCenter{
-    private Map data ;
-    private Map indexMap;
+    private Map<String,List> data ;
+    private Map<String,String> indexMap;
     private ElasticClient client;
     public DataCenterAbstract(){
         getMyasqlData();
@@ -42,5 +43,5 @@ public abstract class DataCenterAbstract implements DataCenter{
         return b;
     }
     @Override
-    public abstract boolean intoES(ElasticClient client,Map mysqlData,Map indexMap) ;
+    public abstract boolean intoES(ElasticClient client, Map<String, List> mysqlData, Map<String,String> indexMap) ;
 }

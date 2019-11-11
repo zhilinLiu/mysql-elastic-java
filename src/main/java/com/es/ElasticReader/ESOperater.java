@@ -1,9 +1,7 @@
-package com.es.ElasticOperater;
+package com.es.ElasticReader;
 
 import com.es.client.ElasticClient;
 import org.dom4j.DocumentException;
-
-import java.util.List;
 
 /**
  *  es操作器，把数据中心的数据读取出来存放到Es中

@@ -20,33 +20,33 @@
 <!--    ES配置-->
     <ESOperater host="192.168.50.171" port="9200">
 <!--        索引的名字-->
-        <index tablename="test1">{
+        <index tablename="sys_user" shards="1" replicas="0">
             {
-            "properties": {
-            "name": {
-            "type": "text"
-            },
-            "description": {
-            "type": "text"
-            },
-            "studymodel": {
-            "type": "keyword"
-            }
-            }
+                "properties": {
+                "name": {
+                "type": "text"
+                },
+                "description": {
+                "type": "text"
+                },
+                "studymodel": {
+                "type": "keyword"
+                }
+                }
             }
         </index>
-        <index tablename="test2">{
-                {
-                    "properties": {
-                    "name": {
-                    "type": "text"
-                    },
-                    "description": {
-                    "type": "text"
-                    },
-                    "studymodel": {
-                    "type": "keyword"
-                    }
+        <index tablename="sys_role" shards="1" replicas="0">
+            {
+                 "properties": {
+                 "name": {
+                 "type": "text"
+                 },
+                "description": {
+                "type": "text"
+                },
+                "studymodel": {
+                "type": "keyword"
+                }
                 }
             }
         </index>

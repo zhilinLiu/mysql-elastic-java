@@ -1,5 +1,6 @@
 package com.es.client;
 
+import com.es.Exception.CreateIndexException;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.client.RestClient;
@@ -45,113 +46,197 @@ public class ElasticClient {
 
         public boolean createIndex(String tableName, int shards, int replicas, String jsonMapping) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            boolean index = super.createIndex(tableName, client, shards, replicas, jsonMapping);
-            client.close();
-            return index;
+            try{
+                boolean index = super.createIndex(tableName, client, shards, replicas, jsonMapping);
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new CreateIndexException("创建索引失败，索引"+tableName+"已存在");
+            }finally {
+                client.close();
+            }
+            return true;
         }
 
 
         public boolean deleteIndex(String tableName) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            boolean b = super.deleteIndex(client, tableName);
-            client.close();
-            return b;
+            try{
+                boolean b = super.deleteIndex(client, tableName);
+                return b;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public DocWriteResponse.Result putDoc(String tableName, Map jsonMap) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            DocWriteResponse.Result result = super.putDoc(client, tableName, jsonMap);
-            client.close();
-            return result;
+            try{
+                DocWriteResponse.Result result = super.putDoc(client, tableName, jsonMap);
+                return result;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public DocWriteResponse.Result putDoc(String tableName, String id, Map jsonMap) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            DocWriteResponse.Result result = super.putDoc(client, tableName, id, jsonMap);
-            client.close();
-            return result;
+            try{
+                DocWriteResponse.Result result = super.putDoc(client, tableName, id, jsonMap);
+                return result;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public Map getDoc(String tableName, String id) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            Map doc = super.getDoc(client, tableName, id);
-            client.close();
-            return doc;
+            try{
+                Map doc = super.getDoc(client, tableName, id);
+                return doc;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public RestStatus updateField(String tableName, String id, Map map) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            RestStatus restStatus = super.updateField(client, tableName, id, map);
-            client.close();
-            return restStatus;
+            try{
+                RestStatus restStatus = super.updateField(client, tableName, id, map);
+                return restStatus;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public DocWriteResponse.Result deleteDoc(String tableName, String id) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            DocWriteResponse.Result result = super.deleteDoc(tableName, id, client);
-            client.close();
-            return result;
+            try{
+                DocWriteResponse.Result result = super.deleteDoc(tableName, id, client);
+                return result;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public List<Map> selectAll(String tableName) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            List<Map> list = super.selectAll(client, tableName);
-            client.close();
-            return list;
+            try{
+                List<Map> list = super.selectAll(client, tableName);
+                return list;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public List<Map> selectAll(String tableName, int offset, int pageSize) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            List<Map> list = super.selectAll(client, tableName, offset, pageSize);
-            client.close();
-            return list;
+            try{
+                List<Map> list = super.selectAll(client, tableName, offset, pageSize);
+                return list;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public ArrayList<Map> exactSelect(String tableName, String field, String value) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            ArrayList<Map> list = super.exactSelect(client, tableName, field, value);
-            client.close();
-            return list;
+            try{
+                ArrayList<Map> list = super.exactSelect(client, tableName, field, value);
+                return list;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public ArrayList<Map> selectByIds(String tableName, List<? extends String> ids) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            ArrayList<Map> list = super.selectByIds(client, tableName, ids);
-            client.close();
-            return list;
+            try{
+                ArrayList<Map> list = super.selectByIds(client, tableName, ids);
+                return list;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public ArrayList<Map> search(String tableName, String field, Object value) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            ArrayList<Map> index = super.search(client, tableName, field, value);
-            client.close();
-            return index;
+            try{
+                ArrayList<Map> index = super.search(client, tableName, field, value);
+                return index;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public ArrayList<Map> search(String tableName, String[] fields, Object value, String importantField) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            ArrayList<Map> index = super.search(client, tableName, fields, value, importantField);
-            client.close();
-            return index;
+            try{
+                ArrayList<Map> index = super.search(client, tableName, fields, value, importantField);
+                return index;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
 
 
         public ArrayList<Map> search(String tableName, String[] fields, Object value) throws IOException {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
-            ArrayList<Map> index = super.search(client, tableName, fields, value);
-            client.close();
-            return index;
+            try{
+                ArrayList<Map> index = super.search(client, tableName, fields, value);
+                return index;
+            }catch (Exception e){
+                e.printStackTrace();
+                throw e;
+            }finally {
+                client.close();
+            }
         }
     }
 }
