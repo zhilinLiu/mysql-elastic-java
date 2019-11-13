@@ -1,0 +1,99 @@
+{
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "text"
+    },
+    "picture": {
+      "type": "text"
+    },
+    "cdhs": {
+      "type": "text"
+    },
+    "gjs": {
+      "type": "integer"
+    },
+    "jhgx": {
+      "type": "text"
+    },
+    "ydlxs": {
+      "type": "text"
+    },
+    "rack": {
+      "type": "text"
+    },
+    "actuator": {
+      "type": "text"
+    },
+    "follower": {
+      "type": "text"
+    },
+    "type": {
+      "type": "text"
+    },
+    "decorate": {
+      "type": "integer"
+    },
+    "zczxdwz": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "xdcc": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "cdhsdfdcx": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "cdhsdxxbf": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "jsdtx": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "xckdx": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "mscxdzs": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "zcdxknx": {
+      "type": "text",
+      "analyzer":"ik_max_word"
+    },
+    "remarks": {
+      "type": "text"
+    },
+    "create_id": {
+      "type": "integer"
+    },
+    "create_time": {
+      "type": "date"
+    },
+    "state": {
+      "type": "integer"
+    },
+    "audit_time": {
+      "type": "date"
+    },
+    "audit_id": {
+      "type": "text"
+    },
+    "cause": {
+      "type": "text"
+    },
+    "org_id": {
+      "type": "text"
+    },
+    "deleted": {
+      "type": "integer"
+    }
+  }
+}

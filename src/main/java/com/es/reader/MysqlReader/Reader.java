@@ -3,11 +3,11 @@ package com.es.reader.MysqlReader;
 import com.es.Exception.DataReaderException;
 import org.dom4j.Document;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 /**
  * 读取数据实现类
@@ -54,6 +54,7 @@ public class Reader implements MysqlReader {
                     LinkedList<Object> row = new LinkedList<>();
                     for (String feild : feilds) {
                         Object object = resultSet.getObject(feild);
+
                         row.add(object);
                     }
                     rows.add(row);

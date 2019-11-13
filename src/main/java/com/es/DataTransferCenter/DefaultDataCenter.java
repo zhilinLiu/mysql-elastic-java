@@ -4,10 +4,9 @@ import com.es.Exception.CreateIndexException;
 import com.es.client.ElasticClient;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *
@@ -42,7 +41,8 @@ public class DefaultDataCenter extends DataCenterAbstract {
                         row = (List) row;
                         HashMap<String, Object> map = new HashMap<>();
                         for(int i=0;i<((List) row).size();i++){
-                            map.put(fields[i],((List) row).get(i));
+                            Object value = ((List) row).get(i);
+                            map.put(fields[i],value);
                         }
                         try {
                             client.ops().putDoc(tableName,map);
