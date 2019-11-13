@@ -1,4 +1,9 @@
-<config>
+<config >
+<!--    增量配置，使用增量必须得有id字段的表-->
+    <increment use="true" interval="5" >
+        <!--        读取的id数据会在classes文件夹中生成在这-->
+    </increment>
+
     <mysqlReader>
         <mysql-url url="jdbc:mysql://192.168.50.171:3306/meio_dev?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai" username="root" password="root"/>
         <tables>
@@ -32,6 +37,12 @@
                 <field>cause</field>
                 <field>org_id</field>
                 <field>deleted</field>
+            </table>
+            <table tablename="sys_role">
+                <field>id</field>
+                <field>name</field>
+                <field>description</field>
+                <field>status</field>
             </table>
         </tables>
     </mysqlReader>
@@ -127,6 +138,24 @@
             },
             "deleted": {
             "type": "integer"
+            }
+            }
+            }
+        </index>
+        <index tablename="sys_role" shards="1" replicas="0">
+            {
+            "properties": {
+            "id": {
+            "type": "integer"
+            },
+            "name": {
+            "type": "text"
+            },
+            "description": {
+            "type": "text"
+            },
+            "status": {
+            "type": "text"
             }
             }
             }

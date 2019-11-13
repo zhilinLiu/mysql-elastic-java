@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class Application {
     public static void main(String[] args) throws DocumentException, IOException {
-        TransferApplication.start();
+       TransferApplication.start();
     }
 
 

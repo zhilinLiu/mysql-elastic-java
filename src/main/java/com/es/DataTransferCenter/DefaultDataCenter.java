@@ -31,11 +31,12 @@ public class DefaultDataCenter extends DataCenterAbstract {
                 String indexTable = strings[0];
                 String shards= strings[1];
                 String replicas = strings[2];
-                try {
-                    client.ops().createIndex(tableName,Integer.parseInt(shards),Integer.parseInt(replicas),indexMap.get(indexMSG[0]));
-                }catch (Exception e){
-                    System.out.println("索引已存在，正在把数据存进去");
-                }finally {
+                    boolean flag = client.ops().createIndex(tableName, Integer.parseInt(shards), Integer.parseInt(replicas), indexMap.get(indexMSG[0]));
+                    if(flag){
+                        System.out.println("新建索引------------------------------->放入数据中");
+                    }else {
+                        System.out.println("索引已经存在------------------------------->只放入数据进入表中");
+                    }
                     //把List中的数据放入es中
                     rows.forEach(row->{
                         row = (List) row;
@@ -50,12 +51,14 @@ public class DefaultDataCenter extends DataCenterAbstract {
                             System.out.println("错误信息 ----------------->  map放入ES中时错误");
                         }
                     });
-                }
+
 
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 throw new CreateIndexException("在elastic的配置中没有"+tableName+"这个配置");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         return true;

@@ -18,7 +18,7 @@ public abstract class DataCenterAbstract implements DataCenter{
         getMyasqlData();
         getESClient();
         if(invoke()){
-            System.out.println("数据转移 ----------------------------> 完成");
+            System.out.println("数据转移 ----------------------------> 结束");
         }else {
             System.out.println("数据转移 ---------------------------> 失败 : 请检检查原因");
         }

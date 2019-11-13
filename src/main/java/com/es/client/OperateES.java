@@ -60,8 +60,17 @@ public class OperateES {
         //创建索引操作客户端
         IndicesClient indices = client.indices();
         //创建响应对象
-        CreateIndexResponse createIndexResponse = indices.create(createIndexRequest);
+        CreateIndexResponse createIndexResponse=null;
+        try {
+             createIndexResponse = indices.create(createIndexRequest);
+        }catch (Exception e){
+            System.out.println("索引"+tableName+"已存在");
+        }
+
         //得到响应结果
+        if(createIndexResponse==null){
+            return false;
+        }
         boolean shardsAcknowledged = createIndexResponse.isShardsAcknowledged();
 
         return shardsAcknowledged;

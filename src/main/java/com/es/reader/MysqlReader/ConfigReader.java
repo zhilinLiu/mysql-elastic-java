@@ -22,6 +22,7 @@ public class ConfigReader {
         try {
             SAXReader saxReader = new SAXReader();
             read = saxReader.read(getClass().getClassLoader().getResource(url));
+            System.out.println(getClass().getClassLoader().getResource(url).getPath());
         } catch (Exception e) {
             e.printStackTrace();
             throw new ConfigReaderException("read config failed , may be the path error");
@@ -34,6 +35,7 @@ public class ConfigReader {
     public ConfigReader getConfig(Document document) {
         //根节点
         Element root = document.getRootElement();
+        readIncrementConfig(document);
         //mysqlReader节点
         Element mysqlReader = root.element("mysqlReader");
         //遍历mysqlReader下所有节点
@@ -70,5 +72,21 @@ public class ConfigReader {
 
     public Map getConfigMap() {
         return configMap;
+    }
+    //读取增量配置
+    private boolean readIncrementConfig(Document document){
+        //根节点
+        Element root = document.getRootElement();
+        Element increment = root.element("increment");
+        String use = increment.attributeValue("use");
+        String interval = increment.attributeValue("interval");
+        List<Element> elements = increment.elements();
+        elements.forEach(element -> {
+            System.out.println("当前表名为 ------->"+element.getName()+"  当前增量数据为 ----->"+element.attributeValue("current-id"));
+            configMap.put(element.getName(),element.attributeValue("current-id"));
+        });
+        configMap.put("use",use);
+        configMap.put("interval",interval);
+        return true;
     }
 }

@@ -48,9 +48,10 @@ public class ElasticClient {
             RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(host));
             try{
                 boolean index = super.createIndex(tableName, client, shards, replicas, jsonMapping);
+                return index;
             }catch (Exception e){
                 e.printStackTrace();
-                throw new CreateIndexException("创建索引失败，索引"+tableName+"已存在");
+                System.out.println("创建索引失败，索引"+tableName+"已存在");
             }finally {
                 client.close();
             }
