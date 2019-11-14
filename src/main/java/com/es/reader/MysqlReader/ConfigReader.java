@@ -5,6 +5,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,8 @@ public class ConfigReader {
         Document read = null;
         try {
             SAXReader saxReader = new SAXReader();
-            read = saxReader.read(getClass().getClassLoader().getResource(url));
-            System.out.println(getClass().getClassLoader().getResource(url).getPath());
+            File file = new File(url);
+            read = saxReader.read(file);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ConfigReaderException("read config failed , may be the path error");

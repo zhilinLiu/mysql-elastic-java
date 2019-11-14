@@ -33,7 +33,7 @@ public class DefaultDataCenter extends DataCenterAbstract {
                 String replicas = strings[2];
                     boolean flag = client.ops().createIndex(tableName, Integer.parseInt(shards), Integer.parseInt(replicas), indexMap.get(indexMSG[0]));
                     if(flag){
-                        System.out.println("新建索引------------------------------->放入数据中");
+                        System.out.println("新建索引------------------------------->翻入书");
                     }else {
                         System.out.println("索引已经存在------------------------------->只放入数据进入表中");
                     }

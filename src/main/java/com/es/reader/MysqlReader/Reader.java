@@ -1,5 +1,6 @@
 package com.es.reader.MysqlReader;
 
+import com.es.Application;
 import com.es.Exception.DataReaderException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -31,7 +32,7 @@ public class Reader implements MysqlReader {
     //初始化XML读取器
     private void initializeConfigReader() {
         config = new ConfigReader();
-        Document document = config.configRead("elastic-mysql.xml");
+        Document document = config.configRead(Application.url.get(0));
         ConfigReader config = this.config.getConfig(document);
         this.config = config;
     }
@@ -104,17 +105,18 @@ public class Reader implements MysqlReader {
         SAXReader saxReader = new SAXReader();
         Document document = null;
         try {
-            URL url = getClass().getClassLoader().getResource("elastic-mysql.xml");
-            document = saxReader.read(url);
+//            URL url = getClass().getClassLoader().getResource("elastic-mysql.xml");
+            File file = new File(Application.url.get(0));
+            document = saxReader.read(file);
             Element rootElement = document.getRootElement();
             Element increment = rootElement.element("increment");
             Element element = increment.addElement(tableName);
             element.addAttribute("current-id",String.valueOf(max));
-            XMLWriter xmlWriter = new XMLWriter(new OutputStreamWriter(new FileOutputStream(url.getPath()),"UTF-8"));
+            XMLWriter xmlWriter = new XMLWriter(new OutputStreamWriter(new FileOutputStream(Application.url.get(0)),"UTF-8"));
             xmlWriter.write(document);
             xmlWriter.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("写入文件"+tableName+"的增量数据到"+Application.url.get(0)+"失败，没有写入权限，请检查");
         }
 
     }

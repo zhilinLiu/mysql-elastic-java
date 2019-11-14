@@ -7,6 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,8 @@ public class StartElastic implements ESOperater {
     @Override
     public void getEsConfig() throws DocumentException {
         SAXReader saxReader = new SAXReader();
-        Document read = saxReader.read(Application.class.getClassLoader().getResource("elastic-mysql.xml"));
+        File file = new File(Application.url.get(0));
+        Document read = saxReader.read(file);
         Element root = read.getRootElement();
         Element esOperater = root.element("ESOperater");
         String host = esOperater.attribute("host").getValue();

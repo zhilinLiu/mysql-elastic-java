@@ -6,10 +6,10 @@
     "name": {
       "type": "text"
     },
-    "picture": {
+    "description": {
       "type": "text"
     },
-    "cdhs": {
+    "status": {
       "type": "text"
     },
     "gjs": {

@@ -38,12 +38,6 @@
                 <field>org_id</field>
                 <field>deleted</field>
             </table>
-            <table tablename="sys_role">
-                <field>id</field>
-                <field>name</field>
-                <field>description</field>
-                <field>status</field>
-            </table>
         </tables>
     </mysqlReader>
 <!--    ES配置-->
@@ -138,24 +132,6 @@
             },
             "deleted": {
             "type": "integer"
-            }
-            }
-            }
-        </index>
-        <index tablename="sys_role" shards="1" replicas="0">
-            {
-            "properties": {
-            "id": {
-            "type": "integer"
-            },
-            "name": {
-            "type": "text"
-            },
-            "description": {
-            "type": "text"
-            },
-            "status": {
-            "type": "text"
             }
             }
             }
