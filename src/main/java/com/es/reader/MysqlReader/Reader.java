@@ -46,6 +46,9 @@ public class Reader implements MysqlReader {
         System.out.println("读取mysql数据:  " + b);
     }
 
+    /**
+     *  业务定制版
+     */
     //这块容易报错
     @Override
     public boolean ReadDataFromMysql() {
@@ -56,11 +59,20 @@ public class Reader implements MysqlReader {
             String value = (String) value1;
             String sql = "";
             //如果开启了增量数据，则sql添加筛选条件
-            if (Boolean.parseBoolean(config.getConfigMap().get("use").toString())&&config.getConfigMap().get(tableName)!=null) {
-                sql = "select  " + value + " from " + tableName + " where id>" + config.getConfigMap().get(tableName).toString();
-            } else {
-                sql = "select  " + value + " from " + tableName;
+            if(tableName.equals("pr_jigou")){
+                if (Boolean.parseBoolean(config.getConfigMap().get("use").toString())&&config.getConfigMap().get(tableName)!=null) {
+                    sql = "select  " + value + " from " + tableName + " where id>" + config.getConfigMap().get(tableName).toString()+" and state=2";
+                } else {
+                    sql = "select  " + value + " from " + tableName+" where state=2";
+                }
+            }else {
+                if (Boolean.parseBoolean(config.getConfigMap().get("use").toString()) && config.getConfigMap().get(tableName) != null) {
+                    sql = "select  " + value + " from " + tableName + " where id>" + config.getConfigMap().get(tableName).toString();
+                } else {
+                    sql = "select  " + value + " from " + tableName;
+                }
             }
+
 
             String[] feilds = value.split(",");
             try {
@@ -110,8 +122,13 @@ public class Reader implements MysqlReader {
             document = saxReader.read(file);
             Element rootElement = document.getRootElement();
             Element increment = rootElement.element("increment");
-            Element element = increment.addElement(tableName);
-            element.addAttribute("current-id",String.valueOf(max));
+            Element table=null;
+            if(increment.element(tableName)==null){
+                table = increment.addElement(tableName);
+            }else {
+                table = increment.element(tableName);
+            }
+            table.addAttribute("current-id",String.valueOf(max));
             XMLWriter xmlWriter = new XMLWriter(new OutputStreamWriter(new FileOutputStream(Application.url.get(0)),"UTF-8"));
             xmlWriter.write(document);
             xmlWriter.close();
